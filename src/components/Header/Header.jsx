@@ -1,12 +1,12 @@
-import Blogs from "../Blogs/Blogs";
+import  profile from '../../assets/profile.png'
 
 const Header = () => {
     return (
-        <div>
-      <h1 className='text-5xl bg-blue-300 font-bold'>Knowledge Cafe</h1>
-
-      <Blogs></Blogs>
-      </div>
+        <header className='flex justify-between p-4 mx-4 border-b-2'>
+      <h1 className='text-5xl  font-bold'>Knowledge Cafe</h1>
+<img src={profile} alt="" />
+    
+      </header>
     );
 };
 

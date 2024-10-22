@@ -9,10 +9,11 @@ useEffect(()=>{
     .then(res => res.json())
     .then(data => setBlogs(data));
 
-})
+},[])
     return (
-        <div>
-            <h1>blogs</h1>
+        <div className="md:w-2/3">
+            <h1 className="text-4xl ">blogs :{blogs.length}</h1>
+
         </div>
     );
 };
