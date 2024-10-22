@@ -1,31 +1,37 @@
-import { useState } from "react";
-import "./App.css";
-import Blogs from "./components/Blogs/Blogs";
-import Bookmarks from "./components/Bookmarks/Bookmarks";
-import Header from "./components/Header/Header";
+import { useState } from 'react'
+import './App.css'
+import Blogs from './components/Blogs/Blogs'
+import Bookmarks from './components/Bookmarks/Bookmarks'
+import Header from './components/Header/Header'
 
 function App() {
-  const [bookmarks, setBookmarks] = useState([]); // State is lowercase bookmarks
+  const [bookmarks, setBookmarks] = useState([]);
+  const [readingTime, setReadingTime] = useState(0)
 
-  const handleAddToBookmarks = (blog) => {
-    // Prevent duplicate bookmarks
-    if (!bookmarks.some((b) => b.id === blog.id)) {
-      const newBookmarks = [...bookmarks, blog];
-      setBookmarks(newBookmarks);
-    }
-  };
+  const handleAddToBookmark = blog => {
+    const newBookmarks = [...bookmarks, blog];
+    setBookmarks(newBookmarks);
+  }
+
+  const handleMarkAsRead = (id, time) =>{
+    const newReadingTime = readingTime + time;
+    setReadingTime(newReadingTime);
+    // remove the read blog from bookmark
+    // console.log('remove bookmark', id)
+    const remainingBookmarks = bookmarks.filter(bookmark => bookmark.id !== id);
+    setBookmarks(remainingBookmarks);
+  }
 
   return (
     <>
-      <div>
-        <Header />
-      </div>
-      <main className="md:flex max-w-7xl mx-auto">
-        <Blogs handleAddToBookmarks={handleAddToBookmarks} />
-        <Bookmarks bookmarks={bookmarks} /> {/* Pass bookmarks correctly */}
-      </main>
+        <Header></Header>
+    <div className='flex flex-col md:flex-row max-w-7xl mx-auto p-4'>
+      <Blogs handleAddToBookmark={handleAddToBookmark} handleMarkAsRead={handleMarkAsRead}></Blogs>
+      <Bookmarks bookmarks={bookmarks} readingTime={readingTime}></Bookmarks>
+    </div>
+
     </>
-  );
+  )
 }
 
-export default App;
+export default App
